@@ -1,4 +1,4 @@
-# 📄 AskMyDocs
+# 📄 SmartDocs
 
 A RAG (Retrieval-Augmented Generation) chatbot that lets you upload PDF documents and ask questions about them — powered by Claude AI and ChromaDB.
 
@@ -33,7 +33,7 @@ User Question → Embedding → Vector Search → Relevant Chunks
 ## Project Structure
 
 ```
-askmydocs/
+SmartDocs/
 ├── app.py              # Streamlit UI entry point
 ├── src/
 │   ├── pdf_processor.py    # PDF loading and text chunking
@@ -48,8 +48,8 @@ askmydocs/
 
 **1. Clone the repository**
 ```bash
-git clone https://github.com/YOUR_USERNAME/askmydocs.git
-cd askmydocs
+git clone https://github.com/KevinFunck/SmartDocs.git
+cd SmartDocs
 ```
 
 **2. Create a virtual environment**

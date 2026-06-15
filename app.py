@@ -9,9 +9,9 @@ from src.vectorstore import VectorStore
 
 load_dotenv()
 
-st.set_page_config(page_title="AskMyDocs", page_icon="📄", layout="wide")
+st.set_page_config(page_title="SmartDocs", page_icon="📄", layout="wide")
 
-st.title("📄 AskMyDocs")
+st.title("📄 SmartDocs")
 st.caption("Upload a PDF and ask questions about it — powered by Claude AI")
 
 if "messages" not in st.session_state:
