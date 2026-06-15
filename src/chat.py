@@ -1,8 +1,12 @@
+import os
 from typing import List, Dict
+from dotenv import load_dotenv
 from groq import Groq
 from src.vectorstore import VectorStore
 
-client = Groq()
+load_dotenv()
+
+client = Groq(api_key=os.getenv("GROQ_API_KEY"))
 
 SYSTEM_PROMPT = (
     "You are a helpful assistant that answers questions based on provided document context. "
