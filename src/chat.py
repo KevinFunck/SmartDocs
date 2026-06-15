@@ -34,7 +34,7 @@ def generate_answer(
     })
 
     response = client.chat.completions.create(
-        model="llama3-70b-8192",
+        model="llama-3.3-70b-versatile",
         max_tokens=1024,
         messages=messages,
     )
