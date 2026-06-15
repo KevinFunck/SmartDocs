@@ -1,0 +1,22 @@
+# Environment
+.env
+venv/
+.venv/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+dist/
+build/
+
+# Data (uploaded PDFs stay local)
+data/
+
+# ChromaDB
+chroma_db/
+
+# OS
+.DS_Store
+Thumbs.db
