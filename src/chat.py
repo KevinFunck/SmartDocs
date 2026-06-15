@@ -1,9 +1,8 @@
-import os
 from typing import List, Dict
-from anthropic import Anthropic
+from groq import Groq
 from src.vectorstore import VectorStore
 
-client = Anthropic()
+client = Groq()
 
 SYSTEM_PROMPT = (
     "You are a helpful assistant that answers questions based on provided document context. "
@@ -20,7 +19,8 @@ def generate_answer(
     context_chunks = vectorstore.query(query)
     context = "\n\n".join(context_chunks)
 
-    messages: List[Dict[str, str]] = []
+    messages: List[Dict[str, str]] = [{"role": "system", "content": SYSTEM_PROMPT}]
+
     for msg in chat_history[-6:]:
         messages.append({"role": msg["role"], "content": msg["content"]})
 
@@ -29,11 +29,10 @@ def generate_answer(
         "content": f"Context from document:\n{context}\n\nQuestion: {query}",
     })
 
-    response = client.messages.create(
-        model="claude-haiku-4-5-20251001",
+    response = client.chat.completions.create(
+        model="llama3-70b-8192",
         max_tokens=1024,
-        system=SYSTEM_PROMPT,
         messages=messages,
     )
 
-    return response.content[0].text
+    return response.choices[0].message.content
