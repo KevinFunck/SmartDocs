@@ -6,6 +6,8 @@ from src.vectorstore import VectorStore
 
 load_dotenv()
 
+# load_dotenv() must run before the client is created, otherwise GROQ_API_KEY
+# is still unset and Groq() raises on import.
 client = Groq(api_key=os.getenv("GROQ_API_KEY"))
 
 SYSTEM_PROMPT = (
@@ -20,11 +22,14 @@ def generate_answer(
     vectorstore: VectorStore,
     chat_history: List[Dict[str, str]],
 ) -> str:
+    """Answer a question using RAG: retrieve relevant chunks, then ask the LLM."""
     context_chunks = vectorstore.query(query)
     context = "\n\n".join(context_chunks)
 
     messages: List[Dict[str, str]] = [{"role": "system", "content": SYSTEM_PROMPT}]
 
+    # Only keep the last 6 messages so the prompt stays short and cheap,
+    # while still giving the model some conversational memory.
     for msg in chat_history[-6:]:
         messages.append({"role": msg["role"], "content": msg["content"]})
 

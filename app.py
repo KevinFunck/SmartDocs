@@ -14,6 +14,8 @@ st.set_page_config(page_title="SmartDocs", page_icon="📄", layout="wide")
 st.title("📄 SmartDocs")
 st.caption("Upload a PDF and ask questions about it — powered by Claude AI")
 
+# Streamlit reruns this whole script on every interaction, so persistent
+# state (chat history, the indexed document) must live in session_state.
 if "messages" not in st.session_state:
     st.session_state.messages = []
 if "vectorstore" not in st.session_state:
@@ -58,6 +60,8 @@ if prompt := st.chat_input("Ask a question about your document..."):
     if st.session_state.vectorstore is None:
         st.error("Please upload and process a PDF first.")
     else:
+        # Append before generating the answer so chat_history (passed below)
+        # naturally excludes the current question via messages[:-1].
         st.session_state.messages.append({"role": "user", "content": prompt})
         with st.chat_message("user"):
             st.write(prompt)
